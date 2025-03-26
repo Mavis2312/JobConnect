@@ -8,16 +8,16 @@ export const userConstroller = async (req, res, next) => {
         throw new Error('Please fill all the fields');
     }
 
-    const user = await userModel.findOne({ _id: req.user._id });
+    const user = await userModel.findOne({ email });
     if (user) {
         user.name = name;
         user.lastName = lastName;
         user.email = email;
         user.location = location;
         await user.save();
-        res.status(200).json({ message: 'User updated successfully' });
+        res.status(200).json({ message: 'User updated successfully', token: user.createJWT() });
+    } else {
+        res.status(400);
+        throw new Error('User not update due to some error');
     }
-
-    const token = user.createJWT();
-    res.status(200).json({ user, token });
 }
