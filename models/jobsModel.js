@@ -8,6 +8,7 @@ const jobSchema = new mongoose.Schema({
     position: {
         type: String,
         required: [true, "Please enter a position"],
+        maxlength: 500,
     },
     status: {
         type: String,
@@ -19,7 +20,7 @@ const jobSchema = new mongoose.Schema({
         enum: ["full-time", "part-time", "contract", "internship"],
         default: "full-time",
     },
-    location: {
+    workLocation: {
         type: String,
         required: [true, "Work location is required"],
         default: "Pune",
@@ -27,7 +28,6 @@ const jobSchema = new mongoose.Schema({
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: "User",
-        required: true,
     }
 }, {
     timestamps: true
