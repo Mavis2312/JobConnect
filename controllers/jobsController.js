@@ -22,9 +22,10 @@ export const createJobConstroller = async (req, res) => {
 
 // get all jobs controller
 export const getAllJobsController = async (req, res, next) => {
-    const jobs = await jobsModel.find({ createdBy: req.user.userId }).sort("-createdAt");
+    const jobs = await jobsModel.find({ createdBy: req.company }).sort("-createdAt");
     res.status(200).json({
         totalJobs: jobs.length,
+        jobs,
         success: true,
     })
 };
